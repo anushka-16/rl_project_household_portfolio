@@ -51,7 +51,6 @@ outputs/rl_logs/
 # push small example CSVs.
 # ---------------------
 data_interim/
-outputs/rl_eval/*.csv
 phase5_kpis/
 stress_sim/
 
