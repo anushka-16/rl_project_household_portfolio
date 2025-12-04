@@ -1,0 +1,51 @@
+# configs/scenarios.yaml
+
+random_seed: 123
+horizon_months: 120          # T
+block_size_months: 6        # block bootstrap window
+n_paths: 300               # Monte Carlo paths per scenario (reduce if too heavy)
+
+# correlation hooks
+correlate_equity_down_with_cpi: true
+correlate_rate_hikes_with_equity_vol: true
+
+scenarios:
+  S0:
+    name: "Baseline"
+    description: "Historical means, no extra shocks"
+    cpi_annual_overlay: 0.0          # +0 bps to CPI YoY
+    rate_total_bps: 0                # +0 bps policy rates over period
+    rate_horizon_months: 12
+    equity_drawdown_total: 0.0       # additional peak-to-trough equity shock over first N months
+    equity_drawdown_months: 6
+    gold_total_return_overlay: 0.0   # extra cumulative gold return over full horizon
+
+  S1:
+    name: "Mild stress"
+    description: "CPI +150bps (food +250bps conceptually), +75bps rates over 12 months"
+    cpi_annual_overlay: 0.015        # +150 bps YoY
+    rate_total_bps: 75               # +75 bps over rate_horizon_months
+    rate_horizon_months: 12
+    equity_drawdown_total: -0.10     # optional extra – mild 10% peak-to-trough
+    equity_drawdown_months: 6
+    gold_total_return_overlay: 0.05  # +5% over horizon
+
+  S2:
+    name: "Severe"
+    description: "CPI +300bps, +200bps rates in 6 months, −20% equity drawdown, +10% gold"
+    cpi_annual_overlay: 0.03         # +300 bps YoY
+    rate_total_bps: 200              # +200 bps
+    rate_horizon_months: 6
+    equity_drawdown_total: -0.20     # −20% extra over first equity_drawdown_months
+    equity_drawdown_months: 6
+    gold_total_return_overlay: 0.10  # +10% over horizon
+
+  S3:
+    name: "Custom"
+    description: "User-defined scenario – change numbers as you like"
+    cpi_annual_overlay: 0.01
+    rate_total_bps: 50
+    rate_horizon_months: 12
+    equity_drawdown_total: -0.05
+    equity_drawdown_months: 6
+    gold_total_return_overlay: 0.03
